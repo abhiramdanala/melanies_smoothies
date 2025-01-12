@@ -1,7 +1,8 @@
-SMOOTHIES.PUBLIC."L_XKI99AOF8TWZQ0 (Stage)"
+
 # Import python packages
 import streamlit as st
 from snowflake.snowpark.functions import col
+
 
 # Write directly to the app
 st.title("Customize your smoothie :cup_with_straw:")
