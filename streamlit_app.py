@@ -9,7 +9,7 @@ from snowflake.snowpark.functions import col
 # Write directly to the app
 st.title("Customize your smoothie :cup_with_straw:")
 st.write(
-    """Choose the fruits you want with your custome smoothie.
+    """Choose the fruits you want with your custom smoothie.
     """
 )
 
@@ -21,7 +21,7 @@ my_dataframe = session.table("smoothies.public.fruit_options").select(col('fruit
 
 pd_df=my_dataframe.to_pandas()   
 st.dataframe(pd_df)
-st.stop()
+# st.stop()
 
 name_on_order = st.text_input("Name on Smoothie:")
 st.write("The name on your Smoothie will be", name_on_order)
@@ -35,6 +35,8 @@ if ingredients_list:
     ingredients_string=''
     for fruit_chosen in ingredients_list:
         ingredients_string+=fruit_chosen+' '
+        search_on=pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON'].iloc[0]
+        st.write('The search value for ', fruit_chosen,' is ', search_on, '.')
         st.subheader(fruit_chosen+ ' Nutrition Information')
         smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/"+fruit_chosen)
         st.dataframe(data=smoothiefroot_response.json(),use_container_width=True)
