@@ -20,7 +20,7 @@ my_dataframe = session.table("smoothies.public.fruit_options").select(col('fruit
 # st.dataframe(data=my_dataframe, use_container_width=True)
 
 pd_df=my_dataframe.to_pandas()   
-st.dataframe(pd_df)
+# st.dataframe(pd_df)
 # st.stop()
 
 name_on_order = st.text_input("Name on Smoothie:")
@@ -38,7 +38,7 @@ if ingredients_list:
         search_on=pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON'].iloc[0]
         st.write('The search value for ', fruit_chosen,' is ', search_on, '.')
         st.subheader(fruit_chosen+ ' Nutrition Information')
-        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/"+fruit_chosen)
+        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/"+search_on)
         st.dataframe(data=smoothiefroot_response.json(),use_container_width=True)
     # st.write(ingredients_string)
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients,name_on_order)
